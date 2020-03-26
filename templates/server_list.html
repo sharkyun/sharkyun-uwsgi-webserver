@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <title>西瓜甜</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+                <h1 class="col-10 offset-1">服务器基础信息</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-3 offset-7" style="background-color: aqua;">当前时间：{{now_dt}}</div>
+        </div>
+        <div class="row">
+            <div class="col-8 offset-2">
+
+
+                <table class="table table-condensed table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>id</th>
+                            <th>主机名</th>
+                            <th>操作系统</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{table_tr}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

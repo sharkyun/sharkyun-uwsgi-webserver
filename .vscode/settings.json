@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMap": {
+        "python": "/Users/yanshunjun/.virtualenvs/uwsgi-webserver/bin/python3"
+      }
+}

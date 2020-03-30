@@ -6,5 +6,10 @@
 ## 安装依赖包
 
 ```python
-pip3 install uwsgi  pymysql redis 
+$ cd sharkyun-uwsgi-webserver
+$ sudo pip3 install  -r requirements.txt
 ```
+
+## 运行程序
+
+> 需要自己安装 MySQL  redis

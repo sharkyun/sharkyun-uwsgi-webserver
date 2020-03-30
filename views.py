@@ -1,7 +1,9 @@
-import time
+import time, json
 
 # 导入模块中函数
+import cache
 from models import mysql_conn, mysql_query, mysql_close
+
 
 def handler_index():
     """
@@ -45,4 +47,40 @@ def server_list():
     with open('templates/server_list.html', 'r', encoding='utf-8') as f:
         content = f.read()
         content = content.replace('{{table_tr}}', tab_tr)
+        content = content.replace('{{cache}}', '未使用缓存')
+        content = content.replace('{{dt}}', "")
+    return bytes(content, encoding='utf-8')
+
+
+def cache_or_mysql():
+    start_dt = time.time()
+    rs = cache.rs
+    ttl = rs.ttl("server_info")
+    if ttl >= 1:
+        cache_stat = '使用缓存'
+        server_info = rs.get("server_info")
+        server_info = json.loads(server_info)
+    else:
+        cache_stat = '未使用缓存'
+        server_info = server_data()
+        rs.set("server_info", json.dumps(server_info), ex=30)
+    end_dt = time.time()
+    use_dt = end_dt - start_dt
+
+    tab_tr_tpl = '''
+        <tr>
+            <td>{id}</td>
+            <td>{host_name}</td>
+            <td>{os}</td>
+        </tr>
+        '''
+    tab_tr = ''
+    for item in server_info:
+        tab_tr += tab_tr_tpl.format(**item)
+    
+    with open('templates/server_list.html', 'r', encoding='utf-8') as f:
+        content = f.read()
+        content = content.replace('{{table_tr}}', tab_tr)
+        content = content.replace('{{cache}}', cache_stat)
+        content = content.replace('{{dt}}', str(use_dt))
     return bytes(content, encoding='utf-8')

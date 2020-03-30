@@ -1,17 +1,24 @@
 import pymysql
 
+from settings import DB_SERVER
+
+# 数据库连接信息
+db_host, db_port = DB_SERVER.get("host"), DB_SERVER.get("port")
+db_user, db_pass = DB_SERVER.get("user"), DB_SERVER.get("password")
+db_db_name = DB_SERVER.get("db")
+db_char = DB_SERVER.get('char') if DB_SERVER.get('char') else 'utf8mb4'
 
 def mysql_conn():
     """
     创建连接
     返回连接对象，游标对象
     """
-    conn = pymysql.connect( host='127.0.0.1',
-                            port=3306,
-                            user='root',
-                            passwd='QFedu123!', 
-                            db='shark_db',
-                            charset='utf8mb4')
+    conn = pymysql.connect( host=db_host,
+                            port=db_port,
+                            user=db_user,
+                            passwd=db_pass, 
+                            db=db_db_name,
+                            charset=db_char)
     # 获取游标对象
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     return conn, cursor

@@ -24,3 +24,12 @@ def application(env, start_response):
         start_response('200 OK', [('Content-Type', 'application/json')])
         data = views.server_data()
         return [bytes(json.dumps(data), encoding='utf-8')]
+    elif env['PATH_INFO'] == '/favicon.ico':
+        start_response('200 OK', [('Content-Type', 'text/html')])
+        return [b'']
+    elif env['PATH_INFO'] == '/cache':
+        start_response('200 OK', [('Content-Type', 'text/html')])
+        return [views.cache_or_mysql()]
+    else:
+        start_response('404 OK', [('Content-Type', 'text/html')])
+        return [b'404']

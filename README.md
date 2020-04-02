@@ -3,6 +3,8 @@
 
 ![首页](https://github.com/sharkyun/sharkyun-uwsgi-webserver/raw/master/images/index.png)
 
+![image.png](https://upload-images.jianshu.io/upload_images/11414906-32559205fdf0376a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 # 部署
 
 ## 安装依赖包

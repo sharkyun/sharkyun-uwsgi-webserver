@@ -10,6 +10,8 @@ $ cd sharkyun-uwsgi-webserver
 $ sudo pip3 install  -r requirements.txt
 ```
 
-## 运行程序
+## 配置说明
 
 > 需要自己安装 MySQL  redis
+
+

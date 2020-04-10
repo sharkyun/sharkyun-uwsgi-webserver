@@ -16,14 +16,6 @@
 
 ![image.png](https://upload-images.jianshu.io/upload_images/11414906-f6e3efe0143ebe0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 部署
-
-## 安装依赖包
-
-```python
-$ cd sharkyun-uwsgi-webserver
-$ sudo pip3 install  -r requirements.txt
-```
 
 ## 配置说明
 
@@ -83,3 +75,5 @@ $ uwsgi webserver.ini
 
 ### 3. 使用浏览器访问
 > 主机检查服务器的防火墙设置
+
+![首页](https://github.com/sharkyun/sharkyun-uwsgi-webserver/raw/master/images/index.png)

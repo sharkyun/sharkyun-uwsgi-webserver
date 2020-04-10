@@ -84,3 +84,15 @@ def cache_or_mysql():
         content = content.replace('{{cache}}', cache_stat)
         content = content.replace('{{dt}}', str(use_dt))
     return bytes(content, encoding='utf-8')
+
+def serve_json():
+    data = server_data()
+    return json.dumps(data, indent=4).encode()
+
+def weixin():
+    with open('images/wx.jpeg', 'rb') as f:
+        return f.read()
+
+def zhihu():
+    with open('images/zhihu.jpeg', 'rb') as f:
+        return f.read()

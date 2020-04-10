@@ -3,33 +3,32 @@ import json
 import views
 
 headers = {
+    # 文件扩展名               类型
     'html': ('Content-Type', 'text/html;charset=utf-8'),
     'json': ('Content-Type', 'application/json;charset=utf-8'),
     'css': ('Content-Type', 'text/css'),
     'jpg': ('Content-Type', 'application/x-jpg'),
+    'jpeg': ('Content-Type', 'image/jpeg'),
     'png': ('Content-Type', 'image/png'),
 }
 
+urls = (
+    ('/', views.handler_index, headers.get('html')),
+    ('/bootstrap/css/bootstrap.css', views.handler_css, headers.get('css')),
+    ('/server_list', views.server_list, headers.get('html')),
+    ('/cache', views.cache_or_mysql, headers.get("html")),
+    ('/api/server', views.serve_json, headers.get('json')),
+    ('/images/wx.jpeg', views.weixin, headers.get('jpeg')),
+    ('/images/zhihu.jpeg', views.zhihu, headers.get('jpeg')),
+)
+
 def application(env, start_response):
-    if env['PATH_INFO'] == '/':
-        start_response('200 OK', [('Content-Type','text/html')])
-        return [views.handler_index()]
-    elif env['PATH_INFO'] == '/bootstrap/css/bootstrap.css':
-        start_response('200 OK', [('Content-Type', 'text/css')])
-        return [views.handler_css()]
-    elif env['PATH_INFO'] == '/server_list':
-        start_response('200 OK', [('Content-Type', 'text/html')])
-        return [views.server_list()]
-    elif env['PATH_INFO'] == '/api/server':
-        start_response('200 OK', [('Content-Type', 'application/json')])
-        data = views.server_data()
-        return [bytes(json.dumps(data), encoding='utf-8')]
-    elif env['PATH_INFO'] == '/favicon.ico':
-        start_response('200 OK', [('Content-Type', 'text/html')])
-        return [b'']
-    elif env['PATH_INFO'] == '/cache':
-        start_response('200 OK', [('Content-Type', 'text/html')])
-        return [views.cache_or_mysql()]
-    else:
-        start_response('404 OK', [('Content-Type', 'text/html')])
-        return [b'404']
+    for item in urls:
+        url, handler_func, header = item
+        print(env['PATH_INFO'], url)
+        if env['PATH_INFO'] == url:
+            start_response('200 OK', [header])
+            return [handler_func()]
+    
+    start_response('404 OK', [('Content-Type', 'text/html')])
+    return [b'404']

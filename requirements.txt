@@ -1,4 +1,4 @@
 PyMySQL==0.9.3
-redis==3.4.1
+redis==4.5.3
 uWSGI==2.0.18
 uwsgitop==0.11
